@@ -1,0 +1,61 @@
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="loader.css">
+<style>
+  body {
+    background: #180122;
+    color: #FFF;
+  }
+</style>
+<div id="loader" style="display:none;"><div class="loader"></div></div>
+<form id="loginForm">
+  <div class="headertext">
+    <h2>Stay Cool Just,</h2>
+    <h2>Login</h2>
+  </div>
+  <div class="loginpart">
+    <input type="email" id="email" placeholder="Email" class="int" required>
+    <input type="password" id="password" placeholder="Password" class="int" required>
+    <button type="submit" class="btn">Login</button>
+  </div>
+  <div class="dont">
+    <span>Don't have account? <a href="https://wa.me/917004323672?text=Hey%2C%20I%20want%20an%20account%20on%20your%20water%20service.">Just Message</a></span>
+  </div>
+</form>
+<script>
+  const scriptURL = 'https://script.google.com/macros/s/AKfycbxGsvBDbMXn_O8CIBTSdQtp3r56Q_SkTEAzKI89BZlyGQ7brYOirpZAoJiodpAJVtSH/exec';
+  const loader = document.getElementById("loader");
+
+  if (localStorage.getItem("water_local")) {
+    window.location.href = "index.html";
+  }
+
+  document.getElementById("loginForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+    loader.style.display = "flex";
+    fetch(scriptURL + "?watercheck=1")
+      .then(res => res.json())
+      .then(data => {
+        const inputEmail = document.getElementById("email").value.trim();
+        const inputPass = document.getElementById("password").value.trim();
+        const users = data;
+        let matched = false;
+        for (let i = 1; i < users.length; i++) {
+          const email = users[i][2];
+          const password = users[i][4];
+          const token = users[i][6];
+          if (inputEmail === email && inputPass === password) {
+            localStorage.setItem("water_local", token);
+            window.location.href = "index.html";
+            matched = true;
+            break;
+          }
+        }
+        if (!matched) {
+          alert("Invalid credentials");
+        }
+        loader.style.display = "none";
+      });
+  });
+</script>

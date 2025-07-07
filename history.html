@@ -1,0 +1,316 @@
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<link rel="stylesheet" href="loader.css">
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #ffffff;
+  color: #333;
+  line-height: 1.6;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 40px;
+  padding: 0 0 20px 0;
+  border-bottom: 2px solid #1771b3;
+}
+
+.header h1 {
+  color: #1771b3;
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.header p {
+  color: #666;
+  font-size: 1.1rem;
+}
+
+#loader {
+  background: #fff;
+  z-index: 9999;
+  width: 95%;
+}
+
+#orderContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  gap: 24px;
+  justify-content: center;
+}
+
+.order-card {
+  background: #ffffff;
+  border: 2px solid #e0e0e0;
+  border-radius: 15px;
+  cursor: pointer;
+  padding: 24px;
+  width: 320px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.order-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(23, 113, 179, 0.15);
+  border-color: #1771b3;
+}
+
+.order-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: #1771b3;
+}
+
+.bottle-icon {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto 20px;
+  display: block;
+  opacity: 0.8;
+}
+
+.order-info {
+  text-align: center;
+}
+
+.order-info p {
+  margin: 12px 0;
+  font-size: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.order-info strong {
+  color: #1771b3;
+  font-weight: 600;
+  min-width: 80px;
+  text-align: left;
+}
+
+.order-value {
+  font-weight: 500;
+  color: #333;
+  text-align: right;
+  flex: 1;
+}
+
+.price-value {
+  color: #1771b3;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.status-processing {
+  background-color: #fff3cd;
+  color: #856404;
+  border: 1px solid #ffeaa7;
+}
+
+.status-completed {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.status-pending {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+.order-id {
+  font-family: 'Courier New', monospace;
+  background-color: #f8f9fa;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  color: #1771b3;
+  border: 1px solid #e9ecef;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 80px 20px;
+  color: #666;
+}
+
+.empty-state h3 {
+  color: #1771b3;
+  margin-bottom: 16px;
+  font-size: 1.5rem;
+}
+
+.empty-state p {
+  font-size: 1.1rem;
+  margin-bottom: 20px;
+}
+
+
+
+@media (max-width: 768px) {
+  body {
+    padding: 15px;
+  }
+  
+  .header h1 {
+    font-size: 2rem;
+  }
+  
+  .order-card {
+    width: 100%;
+    max-width: 350px;
+  }
+  
+  #orderContainer {
+    gap: 16px;
+  }
+  
+  .order-info p {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .header h1 {
+    font-size: 1.8rem;
+  }
+  
+  .order-card {
+    padding: 20px;
+  }
+  
+  .bottle-icon {
+    width: 50px;
+    height: 50px;
+  }
+}
+</style>
+<div id="loader"><div class="loader"></div></div>
+<div class="header">
+  <h1>My Orders</h1>
+  <p>Track your water delivery orders</p>
+</div>
+
+<div id="orderContainer"></div>
+<script>
+  const scriptURL = 'https://script.google.com/macros/s/AKfycbw8aaLlI8QV9XARHHfd3ixlFjLwlDEEL35JhGlXWOmg91bzwEKDD2nCUKYW486d0ZYS/exec';
+  const loader = document.getElementById("loader");
+  const container = document.getElementById("orderContainer");
+  const userToken = localStorage.getItem("water_local");
+
+  if (!userToken) {
+    alert("You are not logged in");
+    window.location.href = "login.html";
+  }
+
+  function getStatusClass(status) {
+    switch(status.toLowerCase()) {
+      case 'completed':
+        return 'status-completed';
+      case 'pending':
+        return 'status-pending';
+      default:
+        return 'status-processing';
+    }
+  }
+
+  function loadData() {
+    loader.style.display = "flex";
+    container.style.display = "none";
+    
+    fetch(scriptURL + "?myorders=1")
+      .then(res => res.json())
+      .then(data => {
+        const orders = data.orders.slice(1);
+        const water = data.water;
+        container.innerHTML = "";
+        
+        let userOrders = [];
+        
+        orders.forEach(row => {
+          const token = row[0];
+          const waterId = row[1];
+          const status = row[2] || "Processing";
+          const orderId = row[3];
+          
+          if (token === userToken) {
+            const waterRow = water.find(w => w[3] === waterId);
+            if (waterRow) {
+              const type = waterRow[0];
+              const qty = waterRow[1];
+              const price = waterRow[2];
+              
+              const card = document.createElement("div");
+              card.className = "order-card";
+              card.innerHTML = `
+                <img src="https://i.ibb.co/zhMc28N4/bottle.png" alt="Water Bottle" class="bottle-icon">
+                <div class="order-info">
+                  <p><strong>Type:</strong> <span class="order-value">${type}</span></p>
+                  <p><strong>Quantity:</strong> <span class="order-value">${qty}</span></p>
+                  <p><strong>Price:</strong> <span class="order-value price-value">₹${price}</span></p>
+                  <p><strong>Status:</strong> <span class="status-badge ${getStatusClass(status)}">${status}</span></p>
+                  <p><strong>Order ID:</strong> <span class="order-id">${orderId}</span></p>
+                </div>
+              `;
+              container.appendChild(card);
+              userOrders.push(card);
+            }
+          }
+        });
+        
+        if (userOrders.length === 0) {
+          container.innerHTML = `
+            <div class="empty-state">
+              <h3>No Orders Found</h3>
+              <p>You haven't placed any orders yet.</p>
+            </div>
+          `;
+        }
+        
+        loader.style.display = "none";
+        container.style.display = "flex";
+      })
+      .catch(error => {
+        console.error('Error loading orders:', error);
+        loader.style.display = "none";
+        container.innerHTML = `
+          <div class="empty-state">
+            <h3>Error Loading Orders</h3>
+            <p>Unable to load your orders. Please try again later.</p>
+          </div>
+        `;
+        container.style.display = "flex";
+      });
+  }
+
+  loadData();
+</script>
+<script src="login.js"></script>

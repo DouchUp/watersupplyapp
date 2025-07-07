@@ -1,0 +1,443 @@
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<link rel="stylesheet" href="loader.css">
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #ffffff;
+  color: #333;
+  line-height: 1.6;
+}
+
+.header {
+  background: #1771b3;
+  color: white;
+  padding: 1rem 0;
+  text-align: center;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.header h1 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.header p {
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+.main-container {
+  max-width: 500px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.payment-card {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  border: 1px solid #e1e8ed;
+  margin-bottom: 2rem;
+}
+
+.payment-info {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.payment-info h2 {
+  color: #1771b3;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.amount-display {
+  background: #f8f9fa;
+  border: 2px solid #1771b3;
+  border-radius: 8px;
+  padding: 1rem;
+  margin: 1rem 0;
+  text-align: center;
+}
+
+.amount-display .amount {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #1771b3;
+}
+
+.amount-display .currency {
+  font-size: 1.2rem;
+  color: #666;
+  margin-right: 0.5rem;
+}
+
+.merchant-info {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 1rem;
+  text-align: left;
+  margin: 1rem 0;
+}
+
+.merchant-info p {
+  margin: 0.5rem 0;
+  font-size: 0.95rem;
+}
+
+.merchant-info strong {
+  color: #1771b3;
+  font-weight: 600;
+}
+
+.qr-container {
+  text-align: center;
+  margin: 2rem 0;
+}
+
+.qr-code {
+  border: 3px solid #1771b3;
+  border-radius: 12px;
+  padding: 1rem;
+  background: white;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  display: inline-block;
+}
+
+.qr-code img {
+  width: 200px;
+  height: 200px;
+  display: block;
+}
+
+.payment-methods {
+  margin: 2rem 0;
+  text-align: center;
+}
+
+.payment-methods h3 {
+  color: #333;
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+}
+
+.upi-icons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem 0;
+}
+
+.upi-icons img {
+  height: 40px;
+  object-fit: contain;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.upload-section {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  border: 1px solid #e1e8ed;
+  margin-top: 2rem;
+}
+
+.upload-section h3 {
+  color: #1771b3;
+  margin-bottom: 1rem;
+  font-size: 1.3rem;
+  text-align: center;
+}
+
+.upload-form {
+  margin-top: 1rem;
+}
+
+.file-input-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.file-input {
+  position: absolute;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.file-input-label {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  background: #f8f9fa;
+  border: 2px dashed #1771b3;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-height: 60px;
+}
+
+.file-input-label:hover {
+  background: #e3f2fd;
+  border-color: #0d5aa7;
+}
+
+.file-icon {
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+  fill: #1771b3;
+}
+
+.file-text {
+  flex: 1;
+  color: #666;
+  font-size: 0.95rem;
+}
+
+.file-selected {
+  color: #1771b3;
+  font-weight: 500;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 1rem;
+  background: #1771b3;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submit-btn:hover {
+  background: #0d5aa7;
+}
+
+.submit-btn:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+.no-dues {
+  text-align: center;
+  padding: 3rem;
+  color: #28a745;
+  font-size: 1.2rem;
+}
+
+.no-dues h3 {
+  color: #28a745;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+.instructions {
+  background: #e3f2fd;
+  border-left: 4px solid #1771b3;
+  padding: 1rem;
+  margin: 1rem 0;
+  border-radius: 4px;
+}
+
+.instructions h4 {
+  color: #1771b3;
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+}
+
+.instructions p {
+  font-size: 0.9rem;
+  color: #666;
+  margin: 0.3rem 0;
+}
+
+@media (max-width: 600px) {
+  .main-container {
+    padding: 0 0.5rem;
+    margin: 1rem auto;
+  }
+  
+  .payment-card, .upload-section {
+    padding: 1.5rem;
+  }
+  
+  .amount-display .amount {
+    font-size: 1.8rem;
+  }
+  
+  .header h1 {
+    font-size: 1.5rem;
+  }
+  
+  .qr-code img {
+    width: 180px;
+    height: 180px;
+  }
+}
+.header {
+  display: none;
+}
+</style>
+<div id="loader"><div class="loader"></div></div>
+
+<div class="header">
+  <h1>Payment Gateway</h1>
+  <p>Secure Payment Processing</p>
+</div>
+
+<div class="main-container">
+  <div id="container" style="display:none;">
+    <div id="paymentSection"></div>
+    <form id="uploadForm" class="upload-section">
+      <h3>Upload Payment Screenshot</h3>
+      <div class="instructions">
+        <h4>Payment Instructions:</h4>
+        <p>1. Scan the QR code above or pay using UPI ID</p>
+        <p>2. Complete the payment</p>
+        <p>3. Take a screenshot of the payment confirmation</p>
+        <p>4. Upload the screenshot below</p>
+      </div>
+      <div class="upload-form">
+        <div class="file-input-wrapper">
+          <input type="file" id="image" class="file-input" accept="image/*" required>
+          <label for="image" class="file-input-label">
+            <svg class="file-icon" viewBox="0 0 24 24">
+              <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+            </svg>
+            <span class="file-text" id="fileText">Choose screenshot file...</span>
+          </label>
+        </div>
+        <button type="submit" class="submit-btn">Submit Payment Proof</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+  const scriptURL = 'https://script.google.com/macros/s/AKfycbyO563xCgW1OPyJPP_QGJOgH606Mi_fYFAnUj-i78zmm3kZd5cYO6XBsMkWtwRpT1nA/exec';
+  const imgbbKey = "a1aab7277069e3d6fa62ab397ae5dfca";
+  const userToken = localStorage.getItem("water_local");
+  const loader = document.getElementById("loader");
+  const container = document.getElementById("container");
+  const section = document.getElementById("paymentSection");
+
+  if (!userToken) {
+    alert("You are not logged in");
+    window.location.href = "login.html";
+  }
+
+  let dueAmount = 0;
+
+  function loadData() {
+    loader.style.display = "flex";
+    fetch(scriptURL + "?payqr=1")
+      .then(res => res.json())
+      .then(data => {
+        const users = data.users;
+        const settings = data.upi;
+        const user = users.find(u => u[6] === userToken);
+        const merchant = settings[1][0];
+        const upi = settings[1][1];
+        dueAmount = parseFloat(user[7]) || 0;
+
+        if (dueAmount <= 0) {
+          section.innerHTML = `
+            <div class="payment-card">
+              <div class="no-dues">
+                <h3>✓ No Dues Found</h3>
+                <p>Your account is up to date</p>
+              </div>
+            </div>
+          `;
+          document.getElementById("uploadForm").style.display = "none";
+        } else {
+          const upiLink = `upi://pay?pa=${upi}&pn=${merchant}&am=${dueAmount}&cu=INR`;
+          const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(upiLink)}`;
+          section.innerHTML = `
+            <div class="payment-card">
+              <div class="payment-info">
+                <h2>Payment Required</h2>
+                <div class="amount-display">
+                  <span class="currency">₹</span><span class="amount">${dueAmount}</span>
+                </div>
+                <div class="merchant-info">
+                  <p><strong>Merchant:</strong> ${merchant}</p>
+                  <p><strong>UPI ID:</strong> ${upi}</p>
+                </div>
+              </div>
+              <div class="qr-container">
+                <div class="qr-code">
+                  <img src="${qrUrl}" alt="Payment QR Code">
+                </div>
+              </div>
+              <div class="payment-methods">
+                <h3>Pay using any UPI App</h3>
+                <div class="upi-icons">
+                  <img src="https://app.jinjimaharaj.com/uploads/payment-logo-icons-1024x272-1.png" alt="UPI Payment Methods">
+                </div>
+              </div>
+            </div>
+          `;
+        }
+
+        loader.style.display = "none";
+        container.style.display = "block";
+      });
+  }
+
+  document.getElementById("image").addEventListener("change", function(e) {
+    const fileText = document.getElementById("fileText");
+    const fileName = e.target.files[0]?.name;
+    if (fileName) {
+      fileText.textContent = fileName;
+      fileText.classList.add("file-selected");
+    } else {
+      fileText.textContent = "Choose screenshot file...";
+      fileText.classList.remove("file-selected");
+    }
+  });
+
+  document.getElementById("uploadForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+    loader.style.display = "flex";
+    const file = document.getElementById("image").files[0];
+    const form = new FormData();
+    form.append("image", file);
+    fetch(`https://api.imgbb.com/1/upload?key=${imgbbKey}`, { method: "POST", body: form })
+      .then(res => res.json())
+      .then(img => {
+        const imageUrl = img.data.url;
+        const paymentForm = new FormData();
+        paymentForm.append("token", userToken);
+        paymentForm.append("amount", dueAmount);
+        paymentForm.append("image", imageUrl);
+        return fetch(scriptURL, { method: "POST", body: paymentForm });
+      })
+      .then(() => {
+        loader.style.display = "none";
+        window.location.href = "success.html";
+      });
+  });
+
+  loadData();
+</script>
+<script src="login.js"></script>

@@ -1,0 +1,362 @@
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.2/css/all.min.css">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="loader.css">
+<link rel="manifest" href="manifest.json">
+<style>
+  .btn {
+    padding: 8px;
+    width: 90%;
+  }
+  #loader {
+    background: #FFF;
+    z-index: 999;
+  }
+  
+  @media screen and (min-width: 786px) {
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #FFF;
+      min-height: 100vh;
+    }
+    
+    .header {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      padding: 20px 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    
+    .header img {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      border-radius: 50%;
+      margin-right: 15px;
+    }
+    
+    .header h2 {
+      font-size: 2.5rem;
+      color: #2c3e50;
+      margin: 0;
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+    
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .desktop-nav {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 15px;
+      margin: 20px auto;
+      max-width: 600px;
+      border-radius: 50px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    }
+    
+    .desktop-nav a {
+      text-decoration: none;
+      color: #2c3e50;
+      font-weight: 500;
+      padding: 12px 25px;
+      border-radius: 25px;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .desktop-nav a:hover {
+      background: #667eea;
+      color: white;
+      transform: translateY(-2px);
+    }
+    
+    .desktop-nav a.active {
+      background: #667eea;
+      color: white;
+    }
+    
+    .footer {
+      display: none;
+    }
+    
+    #cardContainer {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      padding: 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    #cardContainer > div {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 25px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    #cardContainer > div:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    }
+    
+    #cardContainer img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 15px;
+      margin-bottom: 20px;
+    }
+    
+    .area61 {
+      margin-bottom: 20px;
+    }
+    
+    .area61 p {
+      margin: 8px 0;
+      font-size: 1.1rem;
+      color: #2c3e50;
+    }
+    
+    .area61 strong {
+      color: #667eea;
+    }
+    
+    .btn {
+      background: #6100ff;
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      border-radius: 50px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      width: 100%;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+    
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    }
+    
+    .whatsapp {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: #25d366;
+      color: white;
+      padding: 15px;
+      border-radius: 50%;
+      font-size: 1.5rem;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+      z-index: 1000;
+      transition: all 0.3s ease;
+    }
+    
+    .whatsapp:hover {
+      transform: scale(1.1);
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3);
+    }
+    
+    #loader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(5px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+    
+    .install-prompt {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 15px 20px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      display: none;
+      z-index: 1001;
+    }
+    
+    .install-btn {
+      background: #667eea;
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-left: 10px;
+    }
+    
+    .close-install {
+      background: #e74c3c;
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-left: 5px;
+    }
+  }
+</style>
+<div id="loader"><div class="loader"></div></div>
+<div class="header">
+  <img src="https://static.vecteezy.com/system/resources/previews/017/287/470/non_2x/glass-of-water-color-icon-drinking-glass-silhouette-pictogram-glassful-of-clean-water-colorful-icon-illustration-vector.jpg" alt="icon">
+  <h2>AppName</h2>
+</div>
+<div class="desktop-nav">
+  <a href="#" class="active">
+    <i class="fa-solid fa-house"></i>
+    Home
+  </a>
+  <a href="bills.html">
+    <i class="fa-solid fa-receipt"></i>
+    Bills
+  </a>
+  <a href="history.html">
+    <i class="fa-solid fa-clock-rotate-left"></i>
+    History
+  </a>
+</div>
+<div id="cardContainer"></div>
+<a href="http://wa.me/917004323672" class="whatsapp">
+  <i class="fa-brands fa-whatsapp"></i>
+</a>
+<div class="footer">
+  <a href="bills.html" class="footerlinks">
+    <i class="fa-solid fa-receipt"></i>
+    <p>Bills</p>
+  </a>
+  <a href="#" class="footerlinks" style="color: #1771b3;">
+    <i class="fa-solid fa-house"></i>
+    <p>Home</p>
+  </a>
+  <a href="history.html" class="footerlinks">
+    <i class="fa-solid fa-clock-rotate-left"></i>
+    <p>History</p>
+  </a>
+</div>
+<div class="install-prompt" id="installPrompt">
+  <span>Install our app for better experience!</span>
+  <button class="install-btn" id="installBtn">Install</button>
+  <button class="close-install" id="closeInstall">×</button>
+</div>
+<script>
+  const scriptURL = 'https://script.google.com/macros/s/AKfycbzS099rLjzm4z_dznr3GKgLMZsmABOmawNtqU0rO6lobk6dEsxJHydg2FJGpirePywJ/exec';
+  const loader = document.getElementById("loader");
+  const container = document.getElementById("cardContainer");
+  const userToken = localStorage.getItem("water_local");
+
+  if (!userToken) {
+    alert("You are not logged in");
+    window.location.href = "login.html";
+  }
+
+  function randomToken(length = 12) {
+    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+    let result = "";
+    for (let i = 0; i < length; i++) result += chars.charAt(Math.floor(Math.random() * chars.length));
+    return result;
+  }
+
+  function loadData() {
+    loader.style.display = "flex";
+    fetch(scriptURL + "?waterlist=1")
+      .then(res => res.json())
+      .then(data => {
+        container.innerHTML = "";
+        data.slice(1).forEach(row => {
+          const type = row[0];
+          const qty = row[1];
+          const price = row[2];
+          const waterToken = row[3];
+          const card = document.createElement("div");
+          card.innerHTML = `
+            <img src="https://i.ibb.co/zhMc28N4/bottle.png" width="100%">
+            <div class="area61">
+            <p><strong>${type}</strong></p>
+            <p><strong>Quantity:</strong> ${qty}</p>
+            <p><strong>Price:</strong> ₹${price}</p>
+            </div>
+            <button onclick="placeOrder('${waterToken}')" class="btn">Order Now</button>
+          `;
+          container.appendChild(card);
+        });
+        loader.style.display = "none";
+      });
+  }
+
+  function placeOrder(waterToken) {
+    if (confirm("Are you want to place order?")) {
+      loader.style.display = "flex";
+      const form = new FormData();
+      form.append("token", userToken);
+      form.append("water", waterToken);
+      form.append("orderid", randomToken());
+      fetch(scriptURL, { method: "POST", body: form })
+        .then(() => {
+          loader.style.display = "none";
+          alert("Order Placed Successfully");
+        });
+    }
+  }
+
+  loadData();
+
+  let deferredPrompt;
+  const installPrompt = document.getElementById('installPrompt');
+  const installBtn = document.getElementById('installBtn');
+  const closeInstall = document.getElementById('closeInstall');
+
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    if (window.innerWidth >= 786) {
+      installPrompt.style.display = 'block';
+    }
+  });
+
+  installBtn.addEventListener('click', () => {
+    installPrompt.style.display = 'none';
+    deferredPrompt.prompt();
+    deferredPrompt.userChoice.then((choiceResult) => {
+      deferredPrompt = null;
+    });
+  });
+
+  closeInstall.addEventListener('click', () => {
+    installPrompt.style.display = 'none';
+  });
+
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js');
+  }
+</script>
+<script src="login.js"></script>
